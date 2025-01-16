@@ -1,13 +1,41 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
-client = MongoClient("mongodb://localhost:27017/")  # Replace with your connection URI
-db = client["ToDoDB"]  # Replace with your DB name
-user_collection = db["users"]  # Replace with your collection name
+from application.controllers.security import hash_password
+
+client = MongoClient("mongodb://localhost:27017/")  
+db = client["ToDoDB"]  
+user_collection = db["users"]  
 
 def insert_user(data):
-    result = user_collection.insert_one(data)
-    return str(result.inserted_id)
+     """Create a new user and hash the password."""
+
+     name = data.get("name")
+     email = data.get("email")
+     password = data.get("password")  
+     age = data.get("age")
+     todolist = data.get("todolist")
+
+     if not all([name, email, password]):
+        return {"error": "Missing required fields: name, email, password"}, 400
+
+     hashed_password = hash_password(password)
+
+     user = {
+        "name": name,
+        "email": email,
+        "password": hashed_password, 
+        "age": age,
+        "todolist": todolist
+    }
+
+     result = db.users.insert_one(user)
+     return str(result.inserted_id)
+
+def get_user_by_email(email):
+    # Use find_one() to get a user by email
+    user = user_collection.find_one({"email": email})  # This is the correct method
+    return user
 
 def get_user_by_id(user_id):
     user = user_collection.find_one({"_id": ObjectId(user_id)})
