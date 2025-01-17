@@ -15,9 +15,8 @@ def create_user_controller(data):
     if not data.get('name') or not data.get('email') or not data.get('password'):
         return jsonify({"error": "Missing required fields"}), 400
 
-    # Call the service function
     result = create_user(data)
-    return jsonify(result), 201  # Return a response with HTTP 201 Created
+    return jsonify(result), 201  
 
 def login_user_controller(data):
     """
