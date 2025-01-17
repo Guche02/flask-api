@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
-from application.controllers.security import hash_password
+from application.utils.security import hash_password
 
 client = MongoClient("mongodb://localhost:27017/")  
 db = client["ToDoDB"]  
@@ -33,8 +33,7 @@ def insert_user(data):
      return str(result.inserted_id)
 
 def get_user_by_email(email):
-    # Use find_one() to get a user by email
-    user = user_collection.find_one({"email": email})  # This is the correct method
+    user = user_collection.find_one({"email": email})  
     return user
 
 def get_user_by_id(user_id):

@@ -1,15 +1,24 @@
-from application.models.user_model import insert_user, get_user_by_id, update_user, delete_user, get_user_by_email
+from application.models.user_model import (
+    insert_user, 
+    get_user_by_id, 
+    update_user, 
+    delete_user, 
+    get_user_by_email
+)
 from flask_jwt_extended import create_access_token
-from application.controllers.security import verify_password
+from application.utils.security import verify_password
 
 def create_user(data):
+    """
+    Service function to create a new user and return the user ID.
+    """
     user_id = insert_user(data)
     return {"message": "User created successfully", "user_id": user_id}
 
 def login_user(data):
     """
-    This function handles the login process. It checks if the email exists and if
-    the password is correct. If so, it returns a JWT token.
+    Service function for logging in a user by validating their email and password.
+    Returns the access token on successful login.
     """
     email = data.get('email')
     password = data.get('password')
@@ -33,20 +42,28 @@ def login_user(data):
     }, 200
 
 def retrieve_user(user_id):
+    """
+    Service function to retrieve a user by their user_id.
+    """
     user = get_user_by_id(user_id)
     if user:
         return user
     return {"error": "User not found"}
 
 def modify_user(user_id, data):
+    """
+    Service function to update user information.
+    """
     updated_count = update_user(user_id, data)
     if updated_count:
         return {"message": "User updated successfully"}
     return {"error": "User not found or no changes made"}
 
 def remove_user(user_id):
+    """
+    Service function to delete a user by user_id.
+    """
     deleted_count = delete_user(user_id)
     if deleted_count:
         return {"message": "User deleted successfully"}
     return {"error": "User not found"}
-
