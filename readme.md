@@ -15,21 +15,17 @@ TodoAPI is a Flask-based application designed for To-do-list tasks. It follows a
 ### **Setup Instructions**
 1. **Clone the Repository**
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/Guche02/flask-api.git
    cd TodoAPI
 
 2. **Create and activate a virtual environment**
    ```bash
    python -m venv venv
-# For Windows
+   For Windows
    venv\Scripts\activate
 
-2. **Install dependencies**
+2. **Install dependencies and run the application**
   ```bash
   pip install -r requirements.txt
+  python main.py
 
-3. **Run the Application**
-   ```bash
-   python main.py
-
-The application will start on http://127.0.0.1:5000 by default
