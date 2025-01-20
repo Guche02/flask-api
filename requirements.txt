@@ -3,3 +3,4 @@ Flask_JWT_Extended==4.7.1
 mongoengine==0.29.1
 pydantic==2.10.5
 python_bcrypt==0.3.2
+mongo==0.2.0
