@@ -11,30 +11,15 @@ todos_routes = Blueprint("todos_routes", __name__)
 
 @todos_routes.route("/view", methods=["GET"])
 def view_todos_route():
-    user_id_response = auth_middleware()
-    
-    if isinstance(user_id_response, tuple):  
-        return user_id_response  
-    
     user_id = get_jwt_identity()  
     return view_todos(user_id)
 
 @todos_routes.route("/add", methods=["PUT"])
 def add_todos_route():
-    user_id_response = auth_middleware()
-    
-    if isinstance(user_id_response, tuple):  
-        return user_id_response  
-    
     user_id = get_jwt_identity() 
     return add_todos(request, user_id)
 
 @todos_routes.route("/delete", methods=["PUT"])
 def delete_todo_route():
-    user_id_response = auth_middleware()
-    
-    if isinstance(user_id_response, tuple):  
-        return user_id_response  
-    
     user_id = get_jwt_identity()  
     return delete_todo(request, user_id)
