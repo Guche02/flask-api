@@ -1,8 +1,17 @@
+import logging
 from flask import Flask, request
 from flask_jwt_extended import JWTManager
 from application.routes.user_routes import user_routes
 from application.routes.todos_routes import todos_routes
 from application.middleware.auth_middleware import auth_middleware
+
+
+# Set up logging configuration to ensure logs are displayed
+logging.basicConfig(
+    level=logging.INFO,  # Log level can be adjusted (DEBUG, INFO, WARNING, etc.)
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[logging.StreamHandler()]  # Ensures logs go to the console
+)
 
 app = Flask(__name__)
 

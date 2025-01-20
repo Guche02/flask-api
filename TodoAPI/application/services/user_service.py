@@ -7,12 +7,16 @@ from application.models.user_model import (
 )
 from flask_jwt_extended import create_access_token
 from application.utils.security import verify_password
+from application.services.event_service import log_new_user_event
+
+
 
 def create_user(data):
     """
     Service function to create a new user and return the user ID.
     """
     user_id = insert_user(data)
+    log_new_user_event(data)
     return {"message": "User created successfully", "user_id": user_id}
 
 def login_user(data):
